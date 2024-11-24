@@ -4,95 +4,189 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'PlucknPay', // App title
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.green,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Search functionality here
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              // Navigate to cart screen
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Promotional Banner
-            Container(
-              margin: EdgeInsets.all(10),
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/banner.jpg'), // Replace with your banner image
-                  fit: BoxFit.cover,
+      body: Column(
+        children: [
+          // Custom Header
+          Container(
+            margin: EdgeInsets.all(20),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5), // Padding for container
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(100),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 0),
                 ),
-              ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Name and Address Section with Padding
+                Padding(
+                  padding: EdgeInsets.only(left: 15), // Padding specific to this section
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "John Doe", // Replace with dynamic user name
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        "123 Main Street, City", // Replace with dynamic address
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Shopping Bag Icon and Counter (No Padding)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.green.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.shopping_bag_outlined,
+                        size: 30,
+                        color: Colors.green,
+                      ),
+                      SizedBox(width: 10),
+                      Container(
+                        child: Text(
+                          "03", // Replace with dynamic count
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),)
+              ],
             ),
 
-            // Categories Section
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                "Categories",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              height: 100,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+          ),
+
+
+
+          // Rest of the page content
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  categoryCard("Fruits", "assets/images/fruits.jpg"),
-                  categoryCard("Vegetables", "assets/images/vegetables.jpg"),
-                  categoryCard("Dairy", "assets/images/dairy.jpg"),
-                  categoryCard("Snacks", "assets/images/snacks.jpg"),
+
+                  Container(
+                    height: 50,
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search products...",
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.search, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                  // Promotional Banner
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/banner.jpg'), // Replace with your banner image
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+
+
+                  // Categories Section
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      "Categories",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    height: 100,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        categoryCard("Fruits", "assets/images/fruits.jpg"),
+                        categoryCard("Vegetables", "assets/images/vegetables.jpg"),
+                        categoryCard("Dairy", "assets/images/dairy.jpg"),
+                        categoryCard("Snacks", "assets/images/snacks.jpg"),
+                      ],
+                    ),
+                  ),
+
+                  // Product Listings
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      "Top Picks",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 3 / 4,
+                    ),
+                    padding: EdgeInsets.all(10),
+                    itemCount: 6, // Number of products
+                    itemBuilder: (context, index) {
+                      return productCard(
+                        "Apple", // Product name
+                        "assets/images/apple.jpg", // Replace with your product image
+                        "₹100 / kg", // Price
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
-
-            // Product Listings
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                "Top Picks",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 3 / 4,
-              ),
-              padding: EdgeInsets.all(10),
-              itemCount: 6, // Number of products
-              itemBuilder: (context, index) {
-                return productCard(
-                  "Apple", // Product name
-                  "assets/images/apple.jpg", // Replace with your product image
-                  "₹100 / kg", // Price
-                );
-              },
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0, // Default to Home
