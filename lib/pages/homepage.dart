@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.2),
@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: AssetImage('assets/images/banner.jpg'), // Replace with your banner image
+                        image: AssetImage('assets/images/healthy-eating-dieting-and-vegetarian-food-concept-assortment-of-superfoods-in-bowls-on-black-background-assortment-of-healthy-food-dishes-top-view-ai-generated-free-photo.jpg'), // Replace with your banner image
                         fit: BoxFit.cover,
                       ),
                     ),
