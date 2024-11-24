@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'homepage.dart';
+
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class SignUpPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Add sign-up logic
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
