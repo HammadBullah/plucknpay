@@ -27,7 +27,7 @@ class LandingScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Welcome to PlucknPay", // Heading
+                      "Welcome to Pluck\'nPay", // Heading
                       style: TextStyle(
                         fontSize: 27,
                         fontWeight: FontWeight.bold,

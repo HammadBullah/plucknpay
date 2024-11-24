@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PlucknPay', // Example project name
+      title: 'Pluck\'nPay', // Example project name
       theme: ThemeData(
         primarySwatch: Colors.green,
-        textTheme: GoogleFonts.ralewayTextTheme(),
+        textTheme: GoogleFonts.publicSansTextTheme(),
       ),
       home: LandingScreen(), // Start with the sign-in page
     );
