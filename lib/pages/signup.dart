@@ -95,7 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       focusNode: _nameFocusNode,
                       decoration: InputDecoration(
                         labelText: 'Name',
-                        prefixIcon: Icon(Icons.person, color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.grey),
+                        prefixIcon: Icon(Icons.person, color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),

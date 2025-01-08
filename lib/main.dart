@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
         textTheme: TextTheme(
-          bodyLarge: TextStyle(fontFamily: 'Montserrat'),
-          bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+          bodyLarge: TextStyle(fontFamily: 'LeagueSpartan'),
+          bodyMedium: TextStyle(fontFamily: 'LeagueSpartan'),
           // Add other text styles as needed
         ),
       ),

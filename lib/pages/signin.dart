@@ -151,7 +151,7 @@ class SignInPage extends StatelessWidget {
                       ),
                       label: Text("Sign In with Google"),
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.green.shade700,
+                        foregroundColor: Colors.deepOrangeAccent,
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         shape: RoundedRectangleBorder(
