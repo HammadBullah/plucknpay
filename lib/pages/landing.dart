@@ -14,31 +14,25 @@ class LandingScreen extends StatelessWidget {
               // Background Image
               Positioned.fill(
                 child: Image.asset(
-                  'assets/images/istockphoto-1316757372-612x612.jpg', // Replace with your image asset
+                  'assets/images/landing.jpg', // Replace with your image asset
                   fit: BoxFit.cover,
                 ),
               ),
 
-              // Heading and Subtitle (Bottom Left)
-              Positioned(
-                bottom: 120,
-                left: 20,
+              // Heading and Subtitle (Centered)
+              Align(
+                alignment: Alignment.center,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "Welcome to Pluck\'nPay", // Heading
                       style: TextStyle(
                         fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 10.0,
-                            color: Colors.black45,
-                            offset: Offset(2, 2),
-                          ),
-                        ],
+                        fontWeight: FontWeight.w900,
+                        color: Colors.grey.shade900,
+
                       ),
                     ),
                     SizedBox(height: 10),
@@ -46,21 +40,23 @@ class LandingScreen extends StatelessWidget {
                       "Shop smart, save big!", // Subtitle
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.white70,
+                        color: Colors.grey.shade900,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              // Highlighted Arrow (Bottom Right)
-              Positioned(
-                bottom: 50,
-                right: 20,
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 28,
-                  color: Colors.white,
+              // Highlighted Arrow (Centered at the bottom)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 50),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 28,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

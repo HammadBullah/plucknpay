@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Pluck\'nPay', // Example project name
       theme: ThemeData(
         primarySwatch: Colors.green,
-        textTheme: GoogleFonts.publicSansTextTheme(),
+        textTheme: GoogleFonts.montserratTextTheme(),
       ),
       home: LandingScreen(), // Start with the sign-in page
     );
