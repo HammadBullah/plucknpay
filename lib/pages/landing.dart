@@ -14,38 +14,12 @@ class LandingScreen extends StatelessWidget {
               // Background Image
               Positioned.fill(
                 child: Image.asset(
-                  'assets/images/landing.jpg', // Replace with your image asset
+                  'assets/images/pluckn.png', // Replace with your image asset
                   fit: BoxFit.cover,
                 ),
               ),
 
               // Heading and Subtitle (Centered)
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Welcome to Pluck\'nPay", // Heading
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.grey.shade900,
-
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Shop smart, save big!", // Subtitle
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey.shade900,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
 
               // Highlighted Arrow (Centered at the bottom)
               Align(

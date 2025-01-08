@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plucknpay/pages/signin.dart';
 
 import 'homepage.dart';
 
@@ -92,7 +93,7 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Navigate back to sign-in page
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> SignInPage())); /// Navigate back to sign-in page
               },
               child: Text(
                 "Already have an account? Sign In",
