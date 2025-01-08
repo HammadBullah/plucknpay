@@ -22,6 +22,22 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
+  // Custom swipe left animation for SignInPage
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => SignInPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // Starting point for animation (from right to left)
+        const end = Offset.zero; // Ending point (where the page will settle)
+        const curve = Curves.easeInOut; // Animation curve for smooth transition
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -30,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.black38, Colors.black],
+            colors: [Colors.deepOrangeAccent, Colors.black],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -49,7 +65,16 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: screenHeight * 0.1), // Spacer to 20% of screen height
+            Text(
+              "Shop Smart, Save Big!",
+              style: TextStyle(
+                fontFamily: 'LeagueSpartan',
+                fontSize: 18,
+                color: Colors.white54,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: screenHeight * 0.05), // Spacer to 20% of screen height
 
             // Fields Section
             Expanded(
@@ -70,7 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       focusNode: _nameFocusNode,
                       decoration: InputDecoration(
                         labelText: 'Name',
-                        prefixIcon: Icon(Icons.person, color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
+                        prefixIcon: Icon(Icons.person, color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
@@ -149,10 +174,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey,
-                        padding: EdgeInsets.symmetric(vertical: 15),
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(20),
                         ),
+                        minimumSize: Size(double.infinity, 50),
                       ),
                       child: Text(
                         "Sign Up",
@@ -161,13 +187,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: 10),
 
-                    // Sign-In Button
+                    // Sign-In Button with Swipe Left Animation
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignInPage()),
-                        );
+                        Navigator.of(context).push(_createRoute());
                       },
                       child: Text(
                         "Already have an account? Sign In",
@@ -188,13 +211,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       label: Text("Sign Up with Google"),
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.green.shade700,
+                        foregroundColor: Colors.deepOrangeAccent,
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.green.shade700),
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(color: Colors.deepOrangeAccent),
                         ),
+                        minimumSize: Size(double.infinity, 50),
                       ),
                     ),
                   ],
