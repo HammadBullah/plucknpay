@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'signup.dart';
 
-class LandingScreen extends StatelessWidget {
+class LandingScreen extends StatefulWidget {
+  @override
+  _LandingScreenState createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen> {
+  final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        physics: BouncingScrollPhysics(), // Adds a bounce effect
+        controller: _pageController,
+        scrollDirection: Axis.vertical, // Change scroll direction to vertical
+        physics: NeverScrollableScrollPhysics(), // Disable swipe gestures
         children: [
           // Landing Page
           Stack(
@@ -19,20 +28,26 @@ class LandingScreen extends StatelessWidget {
                 ),
               ),
 
-              // Heading and Subtitle (Centered)
-
               // Highlighted Arrow (Centered at the bottom)
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 50),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 28,
-                    color: Colors.white,
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: TextButton.icon(
+                    icon: Icon(
+                      Icons.keyboard_arrow_up,
+                      size: 40,
+                    ),
+                      onPressed: () {
+    // Animate to the next page with a smooth vertical scroll
+    _pageController.animateToPage(
+    1,
+    duration: Duration(milliseconds: 3000),
+    curve: Curves.easeInOut,
+    ); }, label: Text("Scroll up to Sign in!", selectionColor: Colors.black54,),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
 

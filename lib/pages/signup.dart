@@ -106,7 +106,7 @@ class SignUpPage extends StatelessWidget {
                 // Add Google login logic
               },
               icon: Image.asset(
-                'assets/google_logo.png', // Add a Google logo image
+                'assets/images/glogo-removebg-preview.png', // Add a Google logo image
                 height: 24,
                 width: 24,
               ),

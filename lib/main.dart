@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:plucknpay/pages/landing.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -11,12 +9,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pluck\'nPay', // Example project name
+      title: 'Pluck\'nPay',
       theme: ThemeData(
         primarySwatch: Colors.green,
-        textTheme: GoogleFonts.montserratTextTheme(),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(fontFamily: 'Montserrat'),
+          bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+          // Add other text styles as needed
+        ),
       ),
-      home: LandingScreen(), // Start with the sign-in page
+      home: LandingScreen(),
     );
   }
 }
