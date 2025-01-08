@@ -11,7 +11,7 @@ class SignUpPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.green.shade100, Colors.green.shade300],
+            colors: [Colors.deepOrangeAccent, Colors.black],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

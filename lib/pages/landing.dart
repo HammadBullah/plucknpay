@@ -12,48 +12,68 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        scrollDirection: Axis.vertical, // Change scroll direction to vertical
-        physics: NeverScrollableScrollPhysics(), // Disable swipe gestures
-        children: [
-          // Landing Page
-          Stack(
-            children: [
-              // Background Image
-              Positioned.fill(
-                child: Image.asset(
-                  'assets/images/pluckn.png', // Replace with your image asset
-                  fit: BoxFit.cover,
+      body: GestureDetector(
+        onVerticalDragEnd: (details) {
+          // Check the velocity of the drag to determine direction
+          if (details.primaryVelocity! < 0) {
+            // Dragged up
+            _pageController.animateToPage(
+              1,
+              duration: Duration(milliseconds: 800),
+              curve: Curves.easeInOut,
+            );
+          }
+        },
+        child: PageView(
+          controller: _pageController,
+          scrollDirection: Axis.vertical,
+          physics: NeverScrollableScrollPhysics(), // Disable manual swipe gestures
+          children: [
+            // Landing Page
+            Stack(
+              children: [
+                // Background Image
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/images/pluckn.png', // Replace with your image asset
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
 
-              // Highlighted Arrow (Centered at the bottom)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextButton.icon(
-                    icon: Icon(
-                      Icons.keyboard_arrow_up,
-                      size: 40,
-                    ),
+                // Highlighted Arrow (Centered at the bottom)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.keyboard_arrow_up,
+                        size: 40,
+                        color: Colors.deepOrangeAccent,
+                      ),
                       onPressed: () {
-    // Animate to the next page with a smooth vertical scroll
-    _pageController.animateToPage(
-    1,
-    duration: Duration(milliseconds: 3000),
-    curve: Curves.easeInOut,
-    ); }, label: Text("Scroll up to Sign in!", selectionColor: Colors.black54,),
+                        // Trigger page animation
+                        _pageController.animateToPage(
+                          1,
+                          duration: Duration(milliseconds: 2000),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      label: Text(
+                        "Scroll up to Sign in!",
+                        style: TextStyle(color: Colors.deepOrangeAccent,
+                        fontWeight: FontWeight.w900),
+                      ),
                     ),
                   ),
                 ),
-            ],
-          ),
+              ],
+            ),
 
-          // Sign-Up Page
-          SignUpPage(), // Replace with your actual Sign-Up Page widget
-        ],
+            // Sign-Up Page
+            SignUpPage(), // Replace with your actual Sign-Up Page widget
+          ],
+        ),
       ),
     );
   }
