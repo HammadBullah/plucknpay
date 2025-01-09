@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plucknpay/pages/themedata.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,234 +8,327 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Define the index for the current page
   int _currentIndex = 0;
-
-  // Define a PageController to handle the page flow
   final PageController _pageController = PageController();
 
-  // List of custom icons
-  final List<Widget> _icons = [
-    Lottie.asset('assets/icons8-home.json', height: 30, width: 30), // Home Icon
-    Image.asset('assets/favorites_icon.png', height: 30, width: 30), // Favorites Icon
-    Image.asset('assets/orders_icon.png', height: 30, width: 30), // Orders Icon
-    Image.asset('assets/account_icon.png', height: 30, width: 30), // Account Icon
-  ];
+  late List<Widget> _icons;
+  int _selectedCategoryIndex = -1;
 
-  // List of page widgets to navigate between
-  final List<Widget> _pages = [
-    Center(child: Text('Home Page')),
-    Center(child: Text('Favorites Page')),
-    Center(child: Text('Orders Page')),
-    Center(child: Text('Account Page'))
+  // List of category names
+  final List<String> categoryNames = [
+    'Fruits',
+    'Vegetables',
+    'Snacks',
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    _icons = [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            _currentIndex = 0;
+            _pageController.jumpToPage(0);
+          });
+        },
+        child: SvgPicture.asset(
+          'assets/icons8-home-2.svg',
+          height: 30,
+          width: 30,
+          color: Colors.black,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          print("Favorites Page Link");
+        },
+        child: Image.asset('assets/icons8-favorite-90.png', height: 30, width: 30),
+      ),
+      GestureDetector(
+        onTap: () {
+          print("Orders Page Link");
+        },
+        child: Image.asset('assets/icons8-parcel-96.png', height: 30, width: 30),
+      ),
+      GestureDetector(
+        onTap: () {
+          print("Account Page Link");
+        },
+        child: Image.asset('assets/icons8-user-96.png', height: 30, width: 30),
+      ),
+    ];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          // Fixed Header (Not scrollable)
-          Container(
-            margin: EdgeInsets.all(0),
-            padding: EdgeInsets.fromLTRB(10, 70, 10, 10),
-            decoration: BoxDecoration(
-              color: Colors.deepOrangeAccent,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 0),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Menu Icon on the left
-                    IconButton(
-                      icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white70),
-                      onPressed: () {
-                        // Handle menu icon tap
-                      },
-                    ),
-                    // Name and Address Section in the middle
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Location", // Replace with dynamic user name
-                          style: TextStyle(
-                              fontFamily: 'LeagueSpartan',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white54),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          "Bathindi, Jammu", // Replace with dynamic address
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontFamily: 'LeagueSpartan',
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Cart Icon on the right
-                    IconButton(
-                      icon: Icon(Icons.shopping_cart, color: Colors.white70),
-                      onPressed: () {
-                        // Handle cart icon tap
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 50),
-                // Search Bar below the Name and Address
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: Colors.white70),
-                      color: Colors.white,
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Search...",
-                        border: InputBorder.none,
-                        icon: Icon(
-                            Icons.search, color: Colors.deepOrangeAccent),
-                      ),
-                    ),
+    final Brightness platformBrightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = platformBrightness == Brightness.dark;
+
+    return MaterialApp(
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      home: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(0),
+              padding: EdgeInsets.fromLTRB(10, 70, 10, 10),
+              decoration: BoxDecoration(
+                color: Colors.deepOrangeAccent,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(0, 0),
                   ),
-                ),
-              ],
-            ),
-          ),
-          // Scrollable Section (Category & Cards)
-          Expanded(
-            child: SingleChildScrollView( // Only this part is scrollable
+                ],
+              ),
               child: Column(
                 children: [
-                  // Horizontal Scrollable Categories Section
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: Container(
-                      height: 40, // Height of the horizontal categories row
-                      child: ListView(
-                        scrollDirection: Axis.horizontal, // Horizontal scrolling
-                        children: List.generate(10, (index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Handle category button tap
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.deepOrangeAccent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                              ),
-                              child: Text(
-                                'Category ${index + 1}', // Replace with dynamic categories
-                                style: TextStyle(color: Colors.white),
-                              ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white70),
+                        onPressed: () {},
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Location",
+                            style: TextStyle(
+                                fontFamily: 'LeagueSpartan',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white54),
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            "Bathindi, Jammu",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontFamily: 'LeagueSpartan',
                             ),
-                          );
-                        }),
+                          ),
+                        ],
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.shopping_cart, color: Colors.white70),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
-                  // Grid Section for two cards in a row
+                  SizedBox(height: 50),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: GridView.builder(
-                      shrinkWrap: true, // Avoid taking too much space
-                      physics: NeverScrollableScrollPhysics(), // Disable internal scroll
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Two cards per row
-                        crossAxisSpacing: 10, // Spacing between cards
-                        mainAxisSpacing: 10, // Spacing between rows
-                        childAspectRatio: 0.75, // Aspect ratio of the cards
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Colors.white70),
+                        color: Colors.white,
                       ),
-                      itemCount: 6, // Number of cards to display (adjust as needed)
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.category, size: 40, color: Colors.deepOrangeAccent),
-                              SizedBox(height: 10),
-                              Text(
-                                'Card ${index + 1}', // Replace with dynamic content
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search...",
+                          border: InputBorder.none,
+                          icon: Icon(Icons.search, color: Colors.deepOrangeAccent),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-      // Elevated Bottom Navigation Bar with Custom Icons and Flow Navigation
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.deepOrangeAccent,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: Offset(0, 0),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+              child: Container(
+                height: 150,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(categoryNames.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _selectedCategoryIndex = index;  // Update selected category
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepOrangeAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: Text(
+                          categoryNames[index],
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: Container(
+                        height: 50,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedCategoryIndex = 0;  // Set the selected category index to 0 (Top Picks)
+                                  });
+                                },
+                                child: Text(
+                                  'TOP PICKS',
+                                  style: TextStyle(
+                                    fontFamily: 'LeagueSpartan',
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.w900,
+                                    color: _selectedCategoryIndex == 0
+                                        ? Colors.deepOrangeAccent  // Highlight color when selected
+                                        : Colors.black.withOpacity(0.7),  // Default color
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(height: 10,),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedCategoryIndex = 1;  // Set the selected category index to 1 (Trending)
+                                  });
+                                },
+                                child: Text(
+                                  'TRENDING',
+                                  style: TextStyle(
+                                    fontFamily: 'LeagueSpartan',
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.w900,
+                                    color: _selectedCategoryIndex == 1
+                                        ? Colors.deepOrangeAccent  // Highlight color when selected
+                                        : Colors.black.withOpacity(0.7),  // Default color
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(height: 10,),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedCategoryIndex = 2;  // Set the selected category index to 2 (New Arrivals)
+                                  });
+                                },
+                                child: Text(
+                                  'NEW ARRIVALS',
+                                  style: TextStyle(
+                                    fontFamily: 'LeagueSpartan',
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.w900,
+                                    color: _selectedCategoryIndex == 2
+                                        ? Colors.deepOrangeAccent  // Highlight color when selected
+                                        : Colors.black.withOpacity(0.7),  // Default color
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.75,
+                        ),
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.category, size: 40, color: Colors.deepOrangeAccent),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Card ${index + 1}',
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-            // Navigate to the respective page
-            _pageController.jumpToPage(index);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: _icons[0], // Home Icon
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: _icons[1], // Favorites Icon
-              label: 'Favorites',
-            ),
-            BottomNavigationBarItem(
-              icon: _icons[2], // Orders Icon
-              label: 'Orders',
-            ),
-            BottomNavigationBarItem(
-              icon: _icons[3], // Account Icon
-              label: 'Account',
-            ),
-          ],
+        bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,  // Keep the background white for both themes
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+              _pageController.jumpToPage(index);
+            },
+            selectedItemColor: Colors.deepOrangeAccent,
+            unselectedItemColor: Colors.black,
+            items: [
+              BottomNavigationBarItem(
+                icon: _icons[0],
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: _icons[1],
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: _icons[2],
+                label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: _icons[3],
+                label: 'Account',
+              ),
+            ],
+          ),
         ),
       ),
     );

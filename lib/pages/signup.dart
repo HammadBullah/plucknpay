@@ -31,7 +31,7 @@ class SignUpPage extends StatelessWidget {
                   fontFamily: 'LeagueSpartan',
                   fontSize: 70,
                   fontWeight: FontWeight.w900,
-                  color: Theme.of(context).scaffoldBackgroundColor,
+                  color: Colors.white,
                 ),
                 textAlign: TextAlign.center,
               ),

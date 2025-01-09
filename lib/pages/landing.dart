@@ -15,11 +15,6 @@ class _LandingScreenState extends State<LandingScreen> {
     final brightness = MediaQuery.of(context).platformBrightness;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Landing'),
-        // App bar theme can also dynamically change based on system theme
-        backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.blue,
-      ),
       body: GestureDetector(
         onVerticalDragEnd: (details) {
           if (details.primaryVelocity! < 0) {
@@ -51,7 +46,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       icon: Icon(
                         Icons.keyboard_arrow_up,
                         size: 40,
-                        color: brightness == Brightness.dark ? Colors.white : Colors.black, // Change icon color based on theme
+                        color: brightness == Brightness.dark ? Colors.white : Colors.white, // Change icon color based on theme
                       ),
                       onPressed: () {
                         _pageController.animateToPage(
@@ -63,7 +58,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       label: Text(
                         "Scroll up to Sign in!",
                         style: TextStyle(
-                          color: brightness == Brightness.dark ? Colors.white : Colors.black, // Change text color based on theme
+                          color: brightness == Brightness.dark ? Colors.black : Colors.black, // Change text color based on theme
                           fontWeight: FontWeight.w900,
                         ),
                       ),
