@@ -11,12 +11,18 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Detect the theme mode (light or dark) of the device
+    final brightness = MediaQuery.of(context).platformBrightness;
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Landing'),
+        // App bar theme can also dynamically change based on system theme
+        backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.blue,
+      ),
       body: GestureDetector(
         onVerticalDragEnd: (details) {
-          // Check the velocity of the drag to determine direction
           if (details.primaryVelocity! < 0) {
-            // Dragged up
             _pageController.animateToPage(
               1,
               duration: Duration(milliseconds: 800),
@@ -27,20 +33,16 @@ class _LandingScreenState extends State<LandingScreen> {
         child: PageView(
           controller: _pageController,
           scrollDirection: Axis.vertical,
-          physics: NeverScrollableScrollPhysics(), // Disable manual swipe gestures
+          physics: NeverScrollableScrollPhysics(),
           children: [
-            // Landing Page
             Stack(
               children: [
-                // Background Image
                 Positioned.fill(
                   child: Image.asset(
-                    'assets/images/pluckn.png', // Replace with your image asset
+                    'assets/images/pluckn.png',
                     fit: BoxFit.cover,
                   ),
                 ),
-
-                // Highlighted Arrow (Centered at the bottom)
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -49,10 +51,9 @@ class _LandingScreenState extends State<LandingScreen> {
                       icon: Icon(
                         Icons.keyboard_arrow_up,
                         size: 40,
-                        color: Colors.deepOrangeAccent,
+                        color: brightness == Brightness.dark ? Colors.white : Colors.black, // Change icon color based on theme
                       ),
                       onPressed: () {
-                        // Trigger page animation
                         _pageController.animateToPage(
                           1,
                           duration: Duration(milliseconds: 2000),
@@ -61,17 +62,17 @@ class _LandingScreenState extends State<LandingScreen> {
                       },
                       label: Text(
                         "Scroll up to Sign in!",
-                        style: TextStyle(color: Colors.deepOrangeAccent,
-                        fontWeight: FontWeight.w900),
+                        style: TextStyle(
+                          color: brightness == Brightness.dark ? Colors.white : Colors.black, // Change text color based on theme
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-
-            // Sign-Up Page
-            SignUpPage(), // Replace with your actual Sign-Up Page widget
+            SignUpPage(),
           ],
         ),
       ),

@@ -2,66 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:plucknpay/pages/signin.dart';
 import 'homepage.dart';
 
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  final _nameFocusNode = FocusNode();
-  final _emailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
-  final _confirmPasswordFocusNode = FocusNode();
-
-  @override
-  void dispose() {
-    _nameFocusNode.dispose();
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
-    _confirmPasswordFocusNode.dispose();
-    super.dispose();
-  }
-
-  // Custom swipe left animation for SignInPage
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => SignInPage(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // Starting point for animation (from right to left)
-        const end = Offset.zero; // Ending point (where the page will settle)
-        const curve = Curves.easeInOut; // Animation curve for smooth transition
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(position: offsetAnimation, child: child);
-      },
-    );
-  }
-
+class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    // Detect the platform's brightness (light or dark mode)
+    final Brightness platformBrightness = MediaQuery.of(context).platformBrightness;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+        actions: [
+          // Optionally, you can include other actions here if needed
+        ],
+      ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.deepOrangeAccent, Colors.black],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Theme.of(context).scaffoldBackgroundColor, // Use the theme's background color
         child: Column(
           children: [
-            // "Pluck n Pay" Header
-            SizedBox(height: screenHeight * 0.1),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             Text(
               "Pluck n Pay",
               style: TextStyle(
                 fontFamily: 'LeagueSpartan',
                 fontSize: 70,
                 fontWeight: FontWeight.w900,
-                color: Colors.white,
+                color: Theme.of(context).primaryColor, // Primary color from the theme
               ),
               textAlign: TextAlign.center,
             ),
@@ -70,18 +35,18 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(
                 fontFamily: 'LeagueSpartan',
                 fontSize: 18,
-                color: Colors.white54,
+                color: platformBrightness == Brightness.dark ? Colors.grey[400] : Colors.grey[700], // Conditional color based on system theme
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: screenHeight * 0.05), // Spacer to 20% of screen height
-
-            // Fields Section
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.fromLTRB(30.0, 0, 30, 10),
                 decoration: BoxDecoration(
-                  color: Colors.white, // Light grey background color
+                  color: platformBrightness == Brightness.dark
+                      ? Colors.grey[900] // Dark background for dark mode
+                      : Colors.white, // Light background for light mode
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -90,81 +55,56 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Name Field
-                    TextFormField(
-                      focusNode: _nameFocusNode,
+                    TextField(
                       decoration: InputDecoration(
                         labelText: 'Name',
-                        prefixIcon: Icon(Icons.person, color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: _nameFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                        prefixIcon: Icon(Icons.person),
+                        labelStyle: TextStyle(
+                          color: platformBrightness == Brightness.dark
+                              ? Colors.white70 // Light label for dark mode
+                              : Colors.black87, // Dark label for light mode
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
-
-                    // Email Field
                     TextField(
-                      focusNode: _emailFocusNode,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        prefixIcon: Icon(Icons.email, color: _emailFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: _emailFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                        prefixIcon: Icon(Icons.email),
+                        labelStyle: TextStyle(
+                          color: platformBrightness == Brightness.dark
+                              ? Colors.white70
+                              : Colors.black87,
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
-
-                    // Password Field
                     TextField(
-                      focusNode: _passwordFocusNode,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock, color: _passwordFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: _passwordFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                        prefixIcon: Icon(Icons.lock),
+                        labelStyle: TextStyle(
+                          color: platformBrightness == Brightness.dark
+                              ? Colors.white70
+                              : Colors.black87,
                         ),
                       ),
                       obscureText: true,
                     ),
                     SizedBox(height: 10),
-
-                    // Confirm Password Field
                     TextField(
-                      focusNode: _confirmPasswordFocusNode,
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
-                        prefixIcon: Icon(Icons.lock, color: _confirmPasswordFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: _confirmPasswordFocusNode.hasFocus ? Colors.deepOrangeAccent : Colors.deepOrangeAccent),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.deepOrangeAccent),
+                        prefixIcon: Icon(Icons.lock),
+                        labelStyle: TextStyle(
+                          color: platformBrightness == Brightness.dark
+                              ? Colors.white70
+                              : Colors.black87,
                         ),
                       ),
                       obscureText: true,
                     ),
                     SizedBox(height: 20),
-
-                    // Sign-Up Button
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -173,33 +113,27 @@ class _SignUpPageState extends State<SignUpPage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
                         padding: EdgeInsets.symmetric(vertical: 20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                         minimumSize: Size(double.infinity, 50),
                       ),
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
+                      child: Text("Sign Up", style: TextStyle(fontSize: 18)),
                     ),
-                    SizedBox(height: 10),
-
-                    // Sign-In Button with Swipe Left Animation
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(_createRoute());
                       },
                       child: Text(
                         "Already have an account? Sign In",
-                        style: TextStyle(color: Colors.deepOrangeAccent),
+                        style: TextStyle(
+                          color: platformBrightness == Brightness.dark
+                              ? Colors.white70
+                              : Colors.black87,
+                        ),
                       ),
                     ),
-                    Divider(height: 30),
-
-                    // Google Sign-Up Button
                     ElevatedButton.icon(
                       onPressed: () {
                         // Add Google login logic
@@ -213,7 +147,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.deepOrangeAccent,
                         backgroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                           side: BorderSide(color: Colors.deepOrangeAccent),
@@ -228,6 +161,21 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => SignInPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
     );
   }
 }
