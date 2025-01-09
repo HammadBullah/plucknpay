@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
               margin: EdgeInsets.all(0),
               padding: EdgeInsets.fromLTRB(10, 70, 10, 10),
               decoration: BoxDecoration(
-                color: Colors.deepOrangeAccent,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
@@ -87,6 +86,10 @@ class _HomePageState extends State<HomePage> {
                     offset: Offset(0, 0),
                   ),
                 ],
+                image: DecorationImage(
+                  image: AssetImage('assets/images/black.png'),  // Replace with your image path
+                  fit: BoxFit.cover,  // Adjust the image size to cover the container
+                ),
               ),
               child: Column(
                 children: [
@@ -103,10 +106,11 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             "Location",
                             style: TextStyle(
-                                fontFamily: 'LeagueSpartan',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white54),
+                              fontFamily: 'LeagueSpartan',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white54,
+                            ),
                           ),
                           SizedBox(height: 2),
                           Text(
@@ -151,30 +155,39 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
               child: Container(
                 height: 150,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(categoryNames.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedCategoryIndex = index;  // Update selected category
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepOrangeAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    double buttonWidth = constraints.maxWidth / categoryNames.length;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryNames.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Container(
+                            width: buttonWidth - 20,  // Subtract padding to ensure buttons fit the screen
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _selectedCategoryIndex = index;  // Update selected category
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.deepOrangeAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: Text(
+                                categoryNames[index],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          categoryNames[index],
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                        );
+                      },
                     );
-                  }),
+                  },
                 ),
               ),
             ),
