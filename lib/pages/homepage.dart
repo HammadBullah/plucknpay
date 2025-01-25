@@ -207,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    _selectedCategoryIndex = 0;  // Set the selected category index to 0 (Top Picks)
+                                    _selectedCategoryIndex = 0;  // Update selected category
                                   });
                                 },
                                 child: Text(
@@ -216,9 +216,9 @@ class _HomePageState extends State<HomePage> {
                                     fontFamily: 'LeagueSpartan',
                                     fontSize: 50,
                                     fontWeight: FontWeight.w900,
-                                    color: _selectedCategoryIndex == 0
+                                    color: isDarkMode == true && _selectedCategoryIndex == 0
                                         ? Colors.deepOrangeAccent  // Highlight color when selected
-                                        : Colors.black.withOpacity(0.7),  // Default color
+                                        : Colors.black.withOpacity(0.7),// Default color
                                   ),
                                 ),
                               ),
