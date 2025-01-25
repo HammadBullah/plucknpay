@@ -37,10 +37,8 @@ class SignUpPage extends StatelessWidget {
               ),
               Text(
                 "Shop Smart, Save Big!",
-                style: TextStyle(
-                  fontFamily: 'LeagueSpartan',
-                  fontSize: 18,
-                  color: platformBrightness == Brightness.dark ? Colors.grey[400] : Colors.white60,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.white54,
                 ),
                 textAlign: TextAlign.center,
               ),

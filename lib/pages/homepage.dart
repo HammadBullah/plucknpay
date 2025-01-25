@@ -313,7 +313,7 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BottomNavigationBar(
-            backgroundColor: Colors.white,  // Keep the background white for both themes
+            backgroundColor: Colors.deepOrangeAccent,  // Keep the background white for both themes
             currentIndex: _currentIndex,
             onTap: (index) {
               setState(() {
